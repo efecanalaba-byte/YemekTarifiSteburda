@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YemekTarifiSteBurda</title>
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#fff8e8;
+color:#222;
+}
+
+header{
+background:#e30613;
+color:white;
+padding:25px 18px 45px;
+border-radius:0 0 30px 30px;
+}
+
+.logo{
+font-size:26px;
+font-weight:900;
+}
+
+.logo span{
+color:#ffd000;
+}
+
+.search{
+margin:-25px 15px 20px;
+background:white;
+padding:7px;
+border-radius:17px;
+display:flex;
+box-shadow:0 5px 20px #0002;
+}
+
+.search input{
+width:100%;
+border:0;
+outline:0;
+padding:14px;
+font-size:16px;
+}
+
+.search button{
+border:0;
+background:#ffd000;
+border-radius:12px;
+padding:0 17px;
+font-size:18px;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+padding:0 15px;
+}
+
+.buttons button{
+flex:1;
+padding:14px 5px;
+border:0;
+border-radius:13px;
+font-weight:bold;
+}
+
+.red{
+background:#e30613;
+color:white;
+}
+
+.yellow{
+background:#ffd000;
+}
+
+.ad{
+margin:18px 15px;
+height:65px;
+border:2px dashed #ccc;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#999;
+background:white;
+font-size:12px;
+}
+
+.hero{
+margin:18px 15px;
+padding:25px;
+border-radius:25px;
+background:#ffd000;
+}
+
+.hero h1{
+font-size:25px;
+}
+
+.hero p{
+margin:10px 0;
+line-height:1.5;
+}
+
+.hero button{
+background:#e30613;
+color:white;
+border:0;
+padding:13px 18px;
+border-radius:11px;
+font-weight:bold;
+}
+
+section{
+padding:10px 15px;
+}
+
+h2{
+margin-bottom:14px;
+}
+
+.categories{
+display:flex;
+gap:8px;
+overflow-x:auto;
+padding-bottom:10px;
+}
+
+.category{
+white-space:nowrap;
+background:white;
+border:2px solid #ffd000;
+padding:10px 14px;
+border-radius:20px;
+font-weight:bold;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.card{
+background:white;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 4px 15px #0002;
+}
+
+.card img{
+width:100%;
+height:140px;
+object-fit:cover;
+}
+
+.card-content{
+padding:12px;
+}
+
+.card-content small{
+color:#e30613;
+font-weight:bold;
+}
+
+.card-content h3{
+margin:6px 0;
+font-size:16px;
+}
+
+.card-content p{
+font-size:12px;
+color:#777;
+}
+
+.card-content button{
+width:100%;
+margin-top:10px;
+padding:10px;
+border:0;
+border-radius:10px;
+background:#e30613;
+color:white;
+font-weight:bold;
+}
+
+@media(max-width:450px){
+.grid{
+grid-template-columns:1fr 1fr;
+}
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+YemekTarifi<span>SteBurda</span> 🍴
+</div>
+
+<p style="margin-top:7px">
+🇹🇷 Türk mutfağının en güzel tarifleri
+</p>
+
+</header>
+
+<div class="search">
+
+<input
+id="search"
+placeholder="🔎 Yemek ara..."
+oninput="ara()"
+>
+
+<button onclick="ara()">🔎</button>
+
+</div>
+
+<div class="buttons">
+
+<button class="red" onclick="sasirt()">
+🎲 Şaşırt Beni
+</button>
+
+<button class="yellow" onclick="gunun()">
+☀️ Günün Tarifi
+</button>
+
+</div>
+
+<div class="ad">
+REKLAM ALANI
+</div>
+
+<div class="hero">
+
+<h1>
+Bugün ne pişiriyoruz? 🍳
+</h1>
+
+<p>
+Binlerce tarif arasından istediğin yemeği bul.
+</p>
+
+<button onclick="tariflereGit()">
+🍽️ Tarifleri Gör
+</button>
+
+</div>
+
+<section>
+
+<h2>
+🍽️ Kategoriler
+</h2>
+
+<div class="categories">
+
+<div class="category" onclick="kategori('')">
+🍽️ Tümü
+</div>
+
+<div class="category" onclick="kategori('ana')">
+🥘 Ana Yemek
+</div>
+
+<div class="category" onclick="kategori('çorba')">
+🍲 Çorba
+</div>
+
+<div class="category" onclick="kategori('tatlı')">
+🍰 Tatlı
+</div>
+
+<div class="category" onclick="kategori('kahvaltı')">
+🍳 Kahvaltı
+</div>
+
+<div class="category" onclick="kategori('salata')">
+🥗 Salata
+</div>
+
+</div>
+
+</section>
+
+<section id="tarifler">
+
+<h2>
+🔥 Tarifler
+</h2>
+
+<div id="durum">
+Tarifler yükleniyor...
+</div>
+
+<div id="grid" class="grid">
+</div>
+
+</section>
+
+<div class="ad">
+REKLAM ALANI
+</div>
+
+<footer style="
+background:#e30613;
+color:white;
+padding:35px 15px;
+text-align:center;
+margin-top:30px;
+">
+
+<h2>
+YemekTarifi<span style="color:#ffd000">SteBurda</span>
+</h2>
+
+<p>
+Evde yemek yapmak artık daha güzel ❤️
+</p>
+
+</footer>
+
+<script>
+
+let tarifler=[];
+
+let liste=[];
+
+let gosterilecek=30;
+
+async function yukle(){
+
+try{
+
+let cevap=await fetch(
+"recipes_groq_cleaned.json"
+);
+
+let veri=await cevap.json();
+
+if(Array.isArray(veri)){
+
+tarifler=veri;
+
+}
+
+else if(Array.isArray(veri.recipes)){
+
+tarifler=veri.recipes;
+
+}
+
+else if(Array.isArray(veri.data)){
+
+tarifler=veri.data;
+
+}
+
+else if(Array.isArray(veri.tarifler)){
+
+tarifler=veri.tarifler;
+
+}
+
+liste=[...tarifler];
+
+document.getElementById("durum").innerHTML=
+"✅ "+tarifler.length+" tarif yüklendi.";
+
+goster();
+
+}catch(hata){
+
+document.getElementById("durum").innerHTML=
+"❌ Tarif dosyası okunamadı.<br><br>"+
+"index.html ile recipes_groq_cleaned.json aynı klasörde olmalı.";
+
+console.log(hata);
+
+}
+
+}
+
+function isim(y){
+
+return y.tarif_adi ||
+y.yemek_adi ||
+y.name ||
+y.title ||
+"İsimsiz Tarif";
+
+}
+
+function kategoriAdi(y){
+
+return y.kategori ||
+y.category ||
+"Türk Mutfağı";
+
+}
+
+function resim(y){
+
+return y.resim ||
+y.resim_url ||
+y.image ||
+y.image_url ||
+"https://images.unsplash.com/photo-1547592180-85f173990554?w=800";
+
+}
+
+function sure(y){
+
+return y.hazirlik_suresi_dk ||
+y.hazirlik_suresi ||
+y.pisirme_suresi_dk ||
+y.pisirme_suresi ||
+"Belirtilmemiş";
+
+}
+
+function goster(){
+
+let grid=document.getElementById("grid");
+
+let parca=liste.slice(0,gosterilecek);
+
+grid.innerHTML="";
+
+parca.forEach((y,i)=>{
+
+let gercek=liste.indexOf(y);
+
+grid.innerHTML+=`
+
+<div class="card">
+
+<img
+src="${resim(y)}"
+loading="lazy"
+>
+
+<div class="card-content">
+
+<small>
+${kategoriAdi(y)}
+</small>
+
+<h3>
+${isim(y)}
+</h3>
+
+<p>
+⏱️ ${sure(y)} dakika
+</p>
+
+<button onclick="ac(${gercek})">
+Tarifi Gör →
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function ara(){
+
+let kelime=document
+.getElementById("search")
+.value
+.toLocaleLowerCase("tr-TR");
+
+liste=tarifler.filter(y=>
+
+isim(y)
+.toLocaleLowerCase("tr-TR")
+.includes(kelime)
+
+);
+
+goster();
+
+}
+
+function kategori(k){
+
+if(!k){
+
+liste=[...tarifler];
+
+}else{
+
+liste=tarifler.filter(y=>
+
+kategoriAdi(y)
+.toLocaleLowerCase("tr-TR")
+.includes(k)
+
+);
+
+}
+
+goster();
+
+}
+
+function sasirt(){
+
+if(!tarifler.length)return;
+
+let no=Math.floor(
+Math.random()*tarifler.length
+);
+
+ac(no);
+
+}
+
+function gunun(){
+
+if(!tarifler.length)return;
+
+let tarih=new Date();
+
+let no=
+(tarih.getDate()+
+tarih.getMonth()+
+tarih.getFullYear())
+%tarifler.length;
+
+ac(no);
+
+}
+
+function tariflereGit(){
+
+document
+.getElementById("tarifler")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+yukle();
+
+</script>
+
+</body>
+</html>
